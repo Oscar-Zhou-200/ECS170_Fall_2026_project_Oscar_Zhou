@@ -1,0 +1,6 @@
+﻿.idea/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+data/stage_2_data/train.csv
