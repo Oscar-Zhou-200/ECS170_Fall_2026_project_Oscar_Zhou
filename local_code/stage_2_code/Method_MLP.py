@@ -132,11 +132,20 @@ class Method_MLP(method, nn.Module):
             self.data['train']['y']
         )
 
-        print('--start testing...')
+        print('--evaluating training set...')
+        train_pred_y = self.test(self.data['train']['X'])
 
-        pred_y = self.test(self.data['test']['X'])
+        print('--evaluating testing set...')
+        test_pred_y = self.test(self.data['test']['X'])
 
         return {
-            'pred_y': pred_y,
-            'true_y': self.data['test']['y']
+            'train_true_y': self.data['train']['y'],
+            'train_pred_y': train_pred_y,
+            'test_true_y': self.data['test']['y'],
+            'test_pred_y': test_pred_y,
+
+            # Keep these keys for compatibility
+            # with the existing test-set evaluator.
+            'true_y': self.data['test']['y'],
+            'pred_y': test_pred_y
         }

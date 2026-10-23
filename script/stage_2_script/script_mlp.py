@@ -65,9 +65,27 @@ if __name__ == '__main__':
 
     metrics, _ = setting_obj.load_run_save_evaluate()
 
-    print('************ Overall Performance ************')
-    for metric_name, metric_value in metrics.items():
-        print(f'{metric_name}: {metric_value:.4f}')
+    metric_names = [
+        'Accuracy',
+        'Precision (macro)',
+        'Recall (macro)',
+        'F1 (macro)',
+        'Precision (micro)',
+        'Recall (micro)',
+        'F1 (micro)',
+        'Precision (weighted)',
+        'Recall (weighted)',
+        'F1 (weighted)'
+    ]
+
+    print('\nDataset,' + ','.join(metric_names))
+
+    for dataset_name in ('Train', 'Test'):
+        values = [
+            f"{metrics[f'{dataset_name} {name}']:.4f}"
+            for name in metric_names
+        ]
+        print(dataset_name + ',' + ','.join(values))
 
     # Plot training convergence curves.
     epochs = range(1, len(method_obj.loss_history) + 1)
